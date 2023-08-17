@@ -1,6 +1,6 @@
-# counter_plus_plus
+# Counter++
 
-A better Counter APP inspired from BetterCounter
+A better Counter APP inspired from [BetterCounter](https://github.com/albertvaka/bettercounter)
 
 ## Getting Started
 
