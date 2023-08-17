@@ -43,6 +43,11 @@ class IsarService {
     );
   }
 
+  Future<List<Counter>> getCounters() async {
+    final isar = await db;
+    return await isar.counters.filter().hiddenEqualTo(false).findAll();
+  }
+
   Stream<List<Counter>> counterStream() async* {
     final isar = await db;
     yield* isar.counters.where().watch(fireImmediately: true);
@@ -52,7 +57,7 @@ class IsarService {
     if (Isar.instanceNames.isEmpty) {
       final dir = await getApplicationDocumentsDirectory();
       return await Isar.open(
-        [CounterSchema],
+        [CounterSchema, LoggerSchema],
         inspector: true,
         directory: dir.path,
       );
