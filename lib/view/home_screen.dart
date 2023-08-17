@@ -90,23 +90,26 @@ class _HomeScreenState extends State<HomeScreen> {
             builder: (context, snapshot) {
               Widget buildWidget = const Text("No Data");
               if (snapshot.hasData) {
+                print('Snapshot Has Data');
+
                 buildWidget = Column(
                   children: snapshot.data!.map((counter) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        color: Colors.deepPurple.shade50,
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(10),
-                        ),
-                      ),
-                      padding: const EdgeInsets.all(0),
-                      child: Column(
-                        children: [
-                          Row(
+                    return Column(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.deepPurple.shade50,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
+                            ),
+                          ),
+                          child: Row(
                             children: [
                               IconButton(
                                 color: Colors.deepPurple.shade200,
-                                onPressed: () {},
+                                onPressed: () async {
+                                  await isarService.decrementCounter(counter);
+                                },
                                 icon: Container(
                                   decoration: BoxDecoration(
                                     color: Colors.deepPurple.shade200,
@@ -138,12 +141,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                         fontWeight: FontWeight.w500,
                                       ),
                                     ),
-                                    Text("2 min ago"),
+                                    Text("History In Progress"),
                                   ],
                                 ),
                               ),
                               IconButton(
-                                onPressed: () {},
+                                onPressed: () async {
+                                  await isarService.incrementCounter(counter);
+                                },
                                 icon: Container(
                                   decoration: BoxDecoration(
                                     color: Colors.deepPurple.shade200,
@@ -160,8 +165,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ],
                           ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                      ],
                     );
                   }).toList(),
                 );
